@@ -65,7 +65,7 @@ def replace_o():
 
 
 def turn_x():
-    global x_input
+    global x_input, turns
     x_input = []
     print("Ход крестиков")
     x_input.append(int(input("Введите номер строки: ")))
@@ -75,7 +75,6 @@ def turn_x():
     if des_x == "нет":
         x_input = []
         turn_x()
-    global turns
     if x_input in turns:
         print("Там уже есть нолик, подумай еще!")
         turn_x()
@@ -83,7 +82,7 @@ def turn_x():
 
 
 def turn_o():
-    global o_input
+    global o_input, turns
     o_input = []
     print("Ход ноликов")
     o_input.append(int(input("Введите номер строки: ")))
@@ -93,7 +92,6 @@ def turn_o():
     if des_o == "нет":
         o_input = []
         turn_o()
-    global turns
     if o_input in turns:
         print("Там уже есть крестик, подумай еще!")
         turn_o()
@@ -118,7 +116,7 @@ def end():
         print("Слабак:-Р")
         exit()
     else:
-        game()
+        game_2()
 
 
 def check_win_x():
@@ -170,7 +168,62 @@ def check_win_o():
 
 
 def game():
-    print("Приветствую, господа!\nПартейку в XO_Game?\nПусть победит сильнейший!")
+    print("Приветствую, господа!\nПартейку в XO_Game?")
+    print("Правила просты - выбираем ячейку куда хоти постаивть свой крестик или нолик.")
+    print("И вводим координаты, сначала номер столбца, потом номер строки.\nПусть победит сильнейший,\nУдачи!")
+    global x_input, o_input, turns, field_start, field_play, xf, yf, zf, win_x_str, win_o_str, win_o_stolb_2
+    global win_x_stolb_1, win_x_stolb_2, win_x_stolb_3, win_x_diag_1, win_x_diag_2, win_o_stolb_1, win_o_stolb_3
+    global win_o_diag_1, win_o_diag_2
+    o_input = []
+    turns = []
+    field_start = [
+        ['-', '-', '-'],
+        ['-', '-', '-'],
+        ['-', '-', '-']
+    ]
+    field_play = copy.deepcopy(field_start)
+    xf = field_play[0]
+    yf = field_play[1]
+    zf = field_play[2]
+    win_x_str = [['X', 'X', 'X'], ('Крестики в ряд')]
+    win_o_str = [['O', 'O', 'O'], ('Нолики в ряд')]
+    win_x_stolb_1 = None
+    win_x_stolb_2 = None
+    win_x_stolb_3 = None
+    win_x_diag_1 = None
+    win_x_diag_2 = None
+    win_o_stolb_1 = None
+    win_o_stolb_2 = None
+    win_o_stolb_3 = None
+    win_o_diag_1 = None
+    win_o_diag_2 = None
+    print_start_field()
+
+    turn__x()
+    turn__o()
+
+    turn__x()
+    turn__o()
+
+    turn__x()
+    check_win_x()    # Third turn
+    turn__o()
+    check_win_o()
+
+    turn__x()
+    check_win_x()
+    turn__o()
+    check_win_o()
+
+    turn__x()
+    check_win_x()
+    check_win_o()
+    print("Ничья ¯ \ _ (ツ) _ / ¯")
+    end()
+
+
+def game_2():
+    print("Пусть победит сильнейший!")
     global x_input, o_input, turns, field_start, field_play, xf, yf, zf, win_x_str, win_o_str, win_o_stolb_2
     global win_x_stolb_1, win_x_stolb_2, win_x_stolb_3, win_x_diag_1, win_x_diag_2, win_o_stolb_1, win_o_stolb_3
     global win_o_diag_1, win_o_diag_2
